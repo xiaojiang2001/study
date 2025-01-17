@@ -1,18 +1,20 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
-
+// ☆当 n >= 20时，结果不变 
 int main()
 {
-    vector<int> dp(2000000001, 0);
-    // dp[0] = 1;
-    // dp[1] = 1;
-    // for (int i = 2; i <= N; i++)
-    //     dp[i] =  dp[i-1] + dp[i-2];
+	vector<int> dp(31, 0);
+	dp[1] = dp[2] = 1;
+	for(int i = 3; i <= 30; i++)
+		dp[i] = dp[i-1] + dp[i-2];
 
-    // for(int i = 1; i < 100; i++)
-    //     cout << dp[i] << " ";
-          
-    return 0;
-}
+	int n;
+	cin >> n;
+	if(n >= 20)
+		n = 20;
+		
+	double res = dp[n] * 1.0 / dp[n+1];
+	cout << fixed << setprecision(8) << res << endl;	
+	return 0; 
+} 
