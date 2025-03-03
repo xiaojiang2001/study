@@ -1,54 +1,58 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-/*
-{1,2,3,1},
-{4,5,6,1},
-{4,5,6,1}
-*/
+// 1 2 3
+// 4 5 6
+// 7 8 9
+
 vector<int> printMatrix(vector<vector<int> > matrix) 
 {
-    int n = matrix.size();              // 行数
-    int m = matrix[0].size();           // 列数
-    vector<int> result(m * n);
-    int idx = 0;            // 结果集下标
-    int circle = 0;         // 圈数
+    // 空数组
+    if(matrix.size() == 0)
+        return  vector<int>{};
+    int up = 0;                         // 上边界
+    int down = matrix.size() - 1;       // 下边界
+    int left = 0;                       // 左边界
+    int right = matrix[0].size() - 1;   // 右边界
+    vector<int> result;
 
-    cout << "n: " << n << endl;
-    cout << "m: " << m << endl;
-
-    if(n == 1 && m ==1) {
-        result[idx] = matrix[0][0];
-        return result;
-    }
-    
-    while(idx < m * n)
+    while(up <= down && left <= right)
     {
-        // 上面第一行
-        for(int i = circle; i < m-1-circle; i++)
-            result[idx++] = matrix[circle][i];
+        // 上一行
+        for (int i = left; i <= right; i++) {
+            result.push_back(matrix[up][i]);
+        }
+        up++;
+        if(up > down)   break;
+
+        // 右
+        for (int i = up; i <= down; i++) {
+            result.push_back(matrix[i][right]);
+        }
+        right--;
+        if(right < left)    break;
+
+        // 下
+        for (int i = right; i >= left; i--){
+            result.push_back(matrix[down][i]);
+        }
+        down--;
+        if(down < up)   break;
         
-        // 右边列
-        for(int j = circle; j < n-1-circle; j++) 
-            result[idx++] = matrix[j][m-1-circle];
 
-
-        // 最下面一行
-        for(int i = m-1-circle; i >= 1+circle; i--)
-            result[idx++] = matrix[n-1-circle][i];
-
-        // 左边列
-        for(int j = n-1-circle; j >= 1+circle; j--)
-            result[idx++] = matrix[j][circle];
-            
-        circle++;
+        // 左
+        for (size_t i = down; i >= up; i--) {
+            result.push_back(matrix[i][left]);
+        }
+        left++;
+        if(left > right)    break;
     }
     return result;
 }
 
 int main()
 {
-    vector<vector<int>> nums{{1,2,3,4,5}};
+    vector<vector<int>> nums{{1,2,3},{4,5,6},{7,8,9}};
 
     vector<int> res = printMatrix(nums);
 
