@@ -1,12 +1,16 @@
 #include <bits/stdc++.h>
+#include <cmath>
 
 using namespace std;
 
 int findNthDigit(int n)     // n = 1000
 {
+    if(n == 0)
+        return 0;
+
     int bits = 1;   // 位数
     int cnt = 9;    // 每个区间的数字个数   9 90 900
-    while (n >= bits * cnt)
+    while (n > bits * cnt)
     {
         n = n - bits * cnt; 
         bits++;
@@ -16,7 +20,8 @@ int findNthDigit(int n)     // n = 1000
     int start = cnt / 10;           // 范围起始数字
     int num = start + (n-1) / bits; // 范围内的具体数字
     int idx =  (n-1) % bits + 1;    // 确定在某个数字的第idx位置
-    int res = (num - pow(10, bits - idx)) % 10;
+    int res = (int)(num / pow(10, bits - idx)) % 10;
+    return res;
 }
 
 int main()
