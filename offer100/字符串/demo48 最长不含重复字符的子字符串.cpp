@@ -2,25 +2,31 @@
 
 using namespace std;
 
+// cababcabc
 int lengthOfLongestSubstring(string s) 
 {
-    int hash[26] = {0};
+    int hash[256] = {0};
     int fast = 0;
     int slow = 0;
+    int res = 0;
     while (fast < s.size())
     {
         // 遇到重复的了
-        if(hash[s[fast] - 'a'] == 1) {
+        if(hash[s[fast]] == 1) {
+            while (slow < s.size() && s[slow] != s[fast]) {
+                hash[s[slow]] = 0;
+                slow++;
+            }
             slow++;
-            fast++;
         }
         // 不重复
         else {
-            hash[s[fast] - 'a'] = 1;
-            fast++;
+            hash[s[fast]] = 1;
+            res = max(res, fast- slow + 1);
         }
+        fast++;
     }
-    return fast - slow;
+    return res;
 }
 
 int main()

@@ -2,36 +2,27 @@
 
 using namespace std;
 
-// 小顶堆
-class cmp{
-public:
-    bool operator()(string str1, string str2)
-    {
-        if(str1.size() > str2.size()) {
-            swap(str1, str2);
-        }
-        
-    }
-};
+// 排序规则
+bool cmp(string &x, string &y)
+{
+    return x + y < y + x;
+}
 
 string PrintMinNumber(vector<int>& numbers) 
 {
     if(numbers.size() == 0)
         return "";
-
-    priority_queue<string, vector<string>, cmp> pri_que;
-    //把字符串按大小排序放入小顶堆
+    vector<string> vec;
+    // 数字存字符串入容器
     for (auto num : numbers) {
-        pri_que.push(to_string(num));
+        vec.push_back(to_string(num));
     }
-    
+    sort(vec.begin(), vec.end(), cmp);
     //拼接结果
     string res = "";
-    while (!pri_que.empty())
-    {
-        res += pri_que.top();
-        pri_que.pop();
-    }
+    for (auto str : vec)
+        res += str;
+    
     return res;
 }
 
@@ -40,4 +31,5 @@ int main()
     vector<int> numbers{3, 32, 321};
     string res = PrintMinNumber(numbers);
     cout << res << endl;
+    return 0;
 }
