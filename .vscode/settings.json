@@ -17,6 +17,7 @@
         "utility": "cpp",
         "valarray": "cpp",
         "complex": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "random": "cpp"
     }
 }
