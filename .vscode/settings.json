@@ -8,6 +8,15 @@
         "forward_list": "cpp",
         "list": "cpp",
         "vector": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "algorithm": "cpp",
+        "iostream": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp",
+        "valarray": "cpp",
+        "complex": "cpp",
+        "ostream": "cpp"
     }
 }
