@@ -10,6 +10,7 @@ struct ListNode{
 };
 
 vector<ListNode*> path;
+
 void backtracking(ListNode* node, int target, int sum)
 {
     if(node == nullptr)
@@ -29,25 +30,23 @@ void backtracking(ListNode* node, int target, int sum)
         return;
     }
 
-
-
     // 递归左有子树 + 回溯
-    backtracking(node->left, target, sum);
-    sum -= node->val;
-    path.pop_back();    
-
+    if(node->left) 
+        backtracking(node->left, target, sum);
+        
     // 递归右子树 + 回溯
-    backtracking(node->right, target, sum);
-    sum -= node->val;
-    path.pop_back();    
+    if(node->right) 
+        backtracking(node->right, target, sum);
 
+    sum -= node->val;
+    path.pop_back();
+    
 }
 
 void FindPath(ListNode* pRoot, int target)
 {
     if(pRoot == nullptr)
         return;
-    path.clear();
     backtracking(pRoot, target, 0);
 }
 
