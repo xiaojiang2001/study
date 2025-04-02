@@ -9,25 +9,37 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-TreeNode* traversal(TreeNode* root)
+TreeNode* pre = nullptr;
+TreeNode* head = nullptr;
+void traversal(TreeNode* root)
 {
-
+    if(root == nullptr)
+        return;
     
+    // 左 递归处理左子树
+    traversal(root->left);
+    
+    // 中
+    if(pre == nullptr) {
+        head = root;
+        pre = root;
+    }
+    else {
+        pre->right = root;
+        root->left = pre;
+        pre = root;
+    }
+
+    // 右 遍历右子树
+    traversal(root->right);
 }
 
 
 
 TreeNode* Convert(TreeNode* pRootOfTree)
 {
-    TreeNode* pre = nullptr;
-    TreeNode* cur = pRootOfTree;
     if(pRootOfTree == nullptr)
         return nullptr;
-    
-    // 找起点
-    while (cur->left) {
-        cur = cur->left;
-    }
-    
-
+    traversal(pRootOfTree);
+    return head;
 }
