@@ -23,6 +23,7 @@
 
 #define SOAP_SOCK_TIMEOUT    (10)                                               // socket超时时间（单秒秒）
 
+/*
 void soap_perror(struct soap *soap, const char *str)
 {
     if (NULL == str) {
@@ -72,6 +73,7 @@ void ONVIF_soap_delete(struct soap *soap)
     soap_done(soap);            // Reset, close communications, and remove callbacks
     soap_free(soap);            // Reset and deallocate the context created with soap_new or soap_copy
 }
+*/
 
 /************************************************************************
 **函数：ONVIF_init_header
@@ -82,6 +84,8 @@ void ONVIF_soap_delete(struct soap *soap)
 **备注：
     1). 在本函数内部通过ONVIF_soap_malloc分配的内存，将在ONVIF_soap_delete中被释放
 ************************************************************************/
+
+/*
 void ONVIF_init_header(struct soap *soap)
 {
     struct SOAP_ENV__Header *header = NULL;
@@ -99,6 +103,8 @@ void ONVIF_init_header(struct soap *soap)
 
     return;
 }
+*/
+
 
 /************************************************************************
 **函数：ONVIF_init_ProbeType
@@ -111,6 +117,7 @@ void ONVIF_init_header(struct soap *soap)
 **备注：
     1). 在本函数内部通过ONVIF_soap_malloc分配的内存，将在ONVIF_soap_delete中被释放
 ************************************************************************/
+/*
 void ONVIF_init_ProbeType(struct soap *soap, struct wsdd__ProbeType *probe)
 {
     struct wsdd__ScopesType *scope = NULL;                                      // 用于描述查找哪类的Web服务
@@ -183,6 +190,7 @@ void ONVIF_DetectDevice(void (*cb)(char *DeviceXAddr))
 
     return ;
 }
+*/
 
 
 

@@ -1,15 +1,10 @@
 /************************************************************************
-**
-** 作者：许振坪
-** 日期：2017-05-03
-** 博客：http://blog.csdn.net/benkaoya
 ** 描述：IPC示例代码公共函数
-**
 ************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "wsseapi.h"
+// #include "wsseapi.h"
 #include "onvif_comm.h"
 #include "onvif_dump.h"
 
@@ -57,10 +52,10 @@ struct soap *ONVIF_soap_new(int timeout)
 
 void ONVIF_soap_delete(struct soap *soap)
 {
-    soap_destroy(soap);                                                         // remove deserialized class instances (C++ only)
-    soap_end(soap);                                                             // Clean up deserialized data (except class instances) and temporary data
-    soap_done(soap);                                                            // Reset, close communications, and remove callbacks
-    soap_free(soap);                                                            // Reset and deallocate the context created with soap_new or soap_copy
+    soap_destroy(soap);       // remove deserialized class instances (C++ only)
+    soap_end(soap);           // Clean up deserialized data (except class instances) and temporary data
+    soap_done(soap);          // Reset, close communications, and remove callbacks
+    soap_free(soap);          // Reset and deallocate the context created with soap_new or soap_copy
 }
 
 /************************************************************************
@@ -81,7 +76,7 @@ int ONVIF_SetAuthInfo(struct soap *soap, const char *username, const char *passw
     SOAP_ASSERT(NULL != username);
     SOAP_ASSERT(NULL != password);
 
-    result = soap_wsse_add_UsernameTokenDigest(soap, NULL, username, password);
+    // result = soap_wsse_add_UsernameTokenDigest(soap, NULL, username, password);
     SOAP_CHECK_ERROR(result, soap, "add_UsernameTokenDigest");
 
 EXIT:
@@ -170,7 +165,11 @@ void ONVIF_DetectDevice(void (*cb)(char *DeviceXAddr))
         if (SOAP_OK == result) {
             if (soap->error) {
                 soap_perror(soap, "ProbeMatches");
-            } else {                                                            // 成功接收到设备的应答消息
+            } 
+            // 成功接收到设备的应答消息
+            else 
+            {       
+                printf("ONVIF_DetectDevice success!");                                                    
                 dump__wsdd__ProbeMatches(&rep);
 
                 if (NULL != rep.wsdd__ProbeMatches) {
