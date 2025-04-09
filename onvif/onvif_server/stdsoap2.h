@@ -1,10 +1,10 @@
 /*
-        stdsoap2.h 2.8.113
+        stdsoap2.h 2.8.138
 
         gSOAP runtime engine
 
 gSOAP XML Web services tools
-Copyright (C) 2000-2021, Robert van Engelen, Genivia Inc., All Rights Reserved.
+Copyright (C) 2000-2025, Robert van Engelen, Genivia Inc., All Rights Reserved.
 This part of the software is released under ONE of the following licenses:
 GPL or the gSOAP public license.
 --------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
 for the specific language governing rights and limitations under the License.
 
 The Initial Developer of the Original Code is Robert A. van Engelen.
-Copyright (C) 2000-2021, Robert van Engelen, Genivia Inc., All Rights Reserved.
+Copyright (C) 2000-2025, Robert van Engelen, Genivia Inc., All Rights Reserved.
 --------------------------------------------------------------------------------
 GPL license.
 
@@ -52,7 +52,7 @@ A commercial use license is available from Genivia, Inc., contact@genivia.com
 --------------------------------------------------------------------------------
 */
 
-#define GSOAP_VERSION 208113
+#define GSOAP_VERSION 208138
 
 #ifdef WITH_SOAPDEFS_H
 # include "soapdefs.h"          /* include user-defined stuff in soapdefs.h */
@@ -195,7 +195,7 @@ A commercial use license is available from Genivia, Inc., contact@genivia.com
 # endif
 #endif
 
-#ifdef __SYMBIAN32__ 
+#ifdef __SYMBIAN32__
 # define SYMBIAN
 # undef WIN32
 #endif
@@ -208,7 +208,7 @@ A commercial use license is available from Genivia, Inc., contact@genivia.com
 
 #if defined(__digital__) && defined(__unix__)
 # ifndef TRU64
-#  define TRU64 
+#  define TRU64
 # endif
 #endif
 
@@ -397,6 +397,7 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  define SOAP_ULONG_FORMAT "%qu"
 #  define HAVE_ISNAN
 #  define HAVE_ISINF
+#  define HAVE_INTTYPES_H
 #  define HAVE_LOCALE_H
 #  define HAVE_XLOCALE_H
 #  define HAVE_RANDOM
@@ -574,6 +575,7 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  define HAVE_ASCTIME_R
 #  define HAVE_LOCALTIME_R
 #  define HAVE_STRERROR_R
+#  define HAVE_INTTYPES_H
 #  define HAVE_LOCALE_H
 # endif
 #endif
@@ -604,9 +606,9 @@ extern intmax_t __strtoull(const char*, char**, int);
 #endif
 
 /* silence clang's C99 variadic macro warnings */
-#ifdef __clang__ 
-# pragma clang diagnostic ignored "-Wvariadic-macros" 
-#endif 
+#ifdef __clang__
+# pragma clang diagnostic ignored "-Wvariadic-macros"
+#endif
 
 #if defined(WITH_PURE_VIRTUAL)
 # define SOAP_PURE_VIRTUAL = 0
@@ -662,7 +664,7 @@ extern intmax_t __strtoull(const char*, char**, int);
 #  include <ctype.h>
 # endif
 # if !defined(HAVE_CONFIG_H) || defined(HAVE_LIMITS_H)
-#  include <limits.h>   /* for MB_LEN_MAX */
+#  include <limits.h>   /* for MB_LEN_MAX strtol strtoll strtoul strtoull */
 # endif
 # if !defined(HAVE_CONFIG_H) || defined(HAVE_FLOAT_H)
 #  include <float.h>    /* for INFINITY */
@@ -724,18 +726,18 @@ extern intmax_t __strtoull(const char*, char**, int);
 # include <netinet\in.h>
 # include <netdb.h>
 # include <stdio.h>
-# include <fcntl.h>                                           
-# include <string.h>                                          
-# include <stdlib.h>                                          
-# include <memory.h>                                          
-# include <errno.h>                                           
+# include <fcntl.h>
+# include <string.h>
+# include <stdlib.h>
+# include <memory.h>
+# include <errno.h>
 # include <cextdecs.h(TIME,FILE_CLOSE_,AWAITIOX,DELAY,FILEINFO,FILE_GETINFO_)>
-# define INET_ERROR 4294967295                                
-#pragma list                                                  
+# define INET_ERROR 4294967295
+#pragma list
 #elif defined(__TANDEM) /* Support for OSS */
 # define int32_t int
 # define SOAP_BUFLEN (32767)
-#endif                                                        
+#endif
 
 #ifdef WITH_NTLM
 # include <ntlm.h>
@@ -930,6 +932,10 @@ extern intmax_t __strtoull(const char*, char**, int);
 # endif
 #endif
 
+#ifdef WITH_WOLFSSL
+# include <wolfssl/ssl.h>
+#endif
+
 #ifdef WITH_SYSTEMSSL
 # include <gskssl.h>
 #endif
@@ -969,7 +975,7 @@ extern "C" {
 # endif
 #elif defined(SOCKLEN_T)
 # define SOAP_SOCKLEN_T SOCKLEN_T
-#elif defined(__socklen_t_defined) || defined(_SOCKLEN_T) || defined(__ANDROID__) || !defined(_GNU_SOURCE) || (!_GNU_SOURCE && !defined(_POSIX_C_SOURCE) && !defined(_XOPEN_SOURCE)) || _POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600
+#elif defined(__socklen_t_defined) || defined(_SOCKLEN_T) || defined(__ANDROID__) || !defined(_GNU_SOURCE) || (!(~_GNU_SOURCE+1) && !defined(_POSIX_C_SOURCE) && !defined(_XOPEN_SOURCE)) || _POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600
 # define SOAP_SOCKLEN_T socklen_t
 #elif defined(IRIX) || defined(WIN32) || defined(SUN_OS) || defined(OPENSERVER) || defined(TRU64) || defined(VXWORKS)
 # define SOAP_SOCKLEN_T int
@@ -1248,6 +1254,11 @@ extern "C" {
 # define SOAP_INDEX_TEST  (2)
 #endif
 
+/* max HTTP chunk size is 2GB by default, can be larger but not to exceed size_t range max */
+#ifndef SOAP_MAXHTTPCHUNK
+# define SOAP_MAXHTTPCHUNK (2147483647)
+#endif
+
 /* Tag name of multiref elements in SOAP 1.1 encoding */
 #ifndef SOAP_MULTIREFTAG
 # define SOAP_MULTIREFTAG "id"
@@ -1315,7 +1326,7 @@ extern "C" {
 # define SOAP_MAXLEVEL (10000)
 #endif
 
-/* maximum string content length if not already constrained by XML schema validation maxLength constraints, zero or negative means unlimited string lengths are allowed unless restricted by XML schema maxLength */ 
+/* maximum string content length if not already constrained by XML schema validation maxLength constraints, zero or negative means unlimited string lengths are allowed unless restricted by XML schema maxLength */
 #ifndef SOAP_MAXLENGTH
 # define SOAP_MAXLENGTH (0)
 #endif
@@ -1329,7 +1340,7 @@ extern "C" {
 # ifdef WMW_RPM_IO
 #  include "httpLib.h"
 # endif
-# ifdef __INCmathh 
+# ifdef __INCmathh
 #  include <private/mathP.h>
 #  ifndef HAVE_ISNAN
 #   define HAVE_ISNAN
@@ -1343,7 +1354,7 @@ extern "C" {
 # endif
 #endif
 
-#ifdef WIN32 
+#ifdef WIN32
 # ifndef HAVE_ISNAN
 #  define HAVE_ISNAN
 # endif
@@ -1700,7 +1711,7 @@ typedef soap_int32 soap_mode;
 
 #define SOAP_ENC                0x00000FFF      /* IO and ENC mask */
 #define SOAP_ENC_LATIN          0x00000020      /* in: accept iso-8859-1 */
-#define SOAP_ENC_PLAIN          0x00000040      /* out: plain (XML or other) body, no HTTP header */
+#define SOAP_ENC_PLAIN          0x00000040      /* out: plain (XML or other) body, no HTTP header, in: skip HTTP header (use soap::length) */
 #define SOAP_ENC_XML            0x00000040      /* deprecated, alias for SOAP_ENC_PLAIN */
 #define SOAP_ENC_DIME           0x00000080
 #define SOAP_ENC_MIME           0x00000100
@@ -1751,6 +1762,7 @@ typedef soap_int32 soap_mode;
 #define SOAP_SSL_ALLOW_EXPIRED_CERTIFICATE      (0x0008)  /* allow self-signed and expired certificates and those w/o CRL */
 #define SOAP_SSL_NO_DEFAULT_CA_PATH             (0x0010)  /* don't use SSL_CTX_set_default_verify_paths */
 #define SOAP_SSL_RSA                            (0x0020)  /* use RSA */
+#define SOAP_SSL_SNI_HOST_CHECK                 (0x0040)  /* client SNI only with a valid hostname, reject IP */
 #define SOAP_SSLv3                              (0x0080)  /* enable SSL v3 */
 #define SOAP_TLSv1_0                            (0x0100)  /* enable TLS v1.0 */
 #define SOAP_TLSv1_1                            (0x0200)  /* enable TLS v1.1 */
@@ -1762,7 +1774,7 @@ typedef soap_int32 soap_mode;
 #define SOAP_SSL_CLIENT                         (0x8000)  /* client context flag for internal use */
 
 #define SOAP_SSL_DEFAULT                        SOAP_SSL_REQUIRE_SERVER_AUTHENTICATION
- 
+
 typedef unsigned short soap_ssl_flags;
 
 /* state */
@@ -2402,10 +2414,12 @@ struct SOAP_CMAC soap_dom_attribute
   soap_dom_attribute(struct soap *soap, const char *ns, const char *tag, const wchar_t *str);
   soap_dom_attribute(struct soap *soap, const char *ns, const wchar_t *tag, const char *str);
   soap_dom_attribute(struct soap *soap, const char *ns, const wchar_t *tag, const wchar_t *str);
+#ifndef WITH_COMPAT
   soap_dom_attribute(struct soap *soap, const char *ns, const char *tag, const std::string& str);
   soap_dom_attribute(struct soap *soap, const char *ns, const char *tag, const std::wstring& str);
   soap_dom_attribute(struct soap *soap, const char *ns, const wchar_t *tag, const std::string& str);
   soap_dom_attribute(struct soap *soap, const char *ns, const wchar_t *tag, const std::wstring& str);
+#endif
   ~soap_dom_attribute();
   soap_dom_attribute& set(const char *ns, const char *tag)      { return *soap_att_set(this, ns, tag); }
   soap_dom_attribute& set(const char *ns, const wchar_t *tag)   { return *soap_att_set_w(this, ns, tag); }
@@ -2772,6 +2786,7 @@ struct SOAP_CMAC soap
   size_t (*frecv)(struct soap*, char*, size_t);
   int (*fpoll)(struct soap*);
   void (*fseterror)(struct soap*, const char **c, const char **s);
+  int (*fencoding)(struct soap*, const char*);
   int (*fignore)(struct soap*, const char*);
   int (*fserveloop)(struct soap*);
   void *(*fplugin)(struct soap*, const char*);
@@ -2840,12 +2855,21 @@ struct SOAP_CMAC soap
   gnutls_session_t session;                     /* session pointer */
   gnutls_dh_params_t dh_params;
   gnutls_rsa_params_t rsa_params;
+#elif defined(WITH_WOLFSSL)     /* WolfSSL */
+  int (*fsslauth)(struct soap*);
+  VerifyCallback fsslverify;    /* callback to verify certificates */
+  void *bio;                    /* N/A */
+  WOLFSSL *ssl;                 /* ssl socket */
+  WOLFSSL_CTX *ctx;             /* environment */
+  void *session;                /* N/A */
+  const char *dhfile;           /* N/A */
+  const char *randfile;         /* N/A */
 #elif defined(WITH_SYSTEMSSL)   /* SYSTEM SSL */
   int (*fsslauth)(struct soap*);
   void *fsslverify;             /* N/A */
   void *bio;                    /* N/A */
-  gsk_handle ctx;               /* environment */
   gsk_handle ssl;               /* ssl socket */
+  gsk_handle ctx;               /* environment */
   void *session;                /* N/A */
   const char *dhfile;           /* N/A */
   const char *randfile;         /* N/A */
@@ -3317,7 +3341,7 @@ SOAP_FMAC1 int SOAP_FMAC2 soap_getposition(const char *, int *);
 
 SOAP_FMAC1 char* SOAP_FMAC2 soap_putsizesoffsets(struct soap*, const char *, const int *, const int *, int);
 SOAP_FMAC1 char* SOAP_FMAC2 soap_putoffsets(struct soap*, const int *, int);
- 
+
 SOAP_FMAC1 int SOAP_FMAC2 soap_closesock(struct soap*);
 SOAP_FMAC1 int SOAP_FMAC2 soap_force_closesock(struct soap*);
 

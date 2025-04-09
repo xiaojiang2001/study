@@ -1,40 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/ioctl.h>
-//#include <sys/socket,h>
-#include <netinet/in.h>
-#include <net/if.h>
-
+ 
 #include "soapH.h"
 #include "soapStub.h"
-int get_mac(char* mac,char* eth_name)
-{
-    struct ifreq pifreq;
-    int sock;
-    int ret;
-
-    if(mac == NULL)
-    {
-        return -EINVAL;
-    }
-    sock = socket(AF_INET,SOCK_STREAM,0);
-    if(sock<0)
-    {
-        printf("socket error!\n");
-        return -EINVAL;
-    }
-    strcpy(pifreq.ifr_name,eth_name);
-    ret = ioctl(sock,SIOCGIFHWADDR,&pifreq);
-    if(ret<0)
-    {
-        perror("ioctl");
-        return -EINVAL;
-    }
-    strncpy(mac,pifreq.ifr_hwaddr.sa_data,6);
-    return 0;
-}
  
+
 SOAP_FMAC5 int SOAP_FMAC6 SOAP_ENV__Fault(struct soap* soap, char *faultcode, char *faultstring, char *faultactor,
 struct SOAP_ENV__Detail *detail, struct SOAP_ENV__Code *_SOAP_ENV__Code,
 struct SOAP_ENV__Reason *SOAP_ENV__Reason, char *SOAP_ENV__Node,
@@ -118,17 +89,9 @@ SOAP_FMAC5 int SOAP_FMAC6  __wsdd__Probe(struct soap* soap, struct wsdd__ProbeTy
 	ProbeMatches.ProbeMatch->wsa__EndpointReference.__any = (char **)soap_malloc(soap, sizeof(char*)* SMALL_INFO_LENGTH);
 	ProbeMatches.ProbeMatch->wsa__EndpointReference.__anyAttribute = (char *)soap_malloc(soap, sizeof(char)* SMALL_INFO_LENGTH);
 	ProbeMatches.ProbeMatch->wsa__EndpointReference.Address = (char *)soap_malloc(soap, sizeof(char)* INFO_LENGTH);
-#if 0
-	netGetMac("eth0", macaddr); //eth0  根据实际情况填充
-	macaddr[0] = 0x01;
-    macaddr[1] = 0x01; 
-    macaddr[2] = 0x01; 
-    macaddr[3] = 0x01; 
-    macaddr[4] = 0x01; 
-    macaddr[5] = 0x01;
-#else
-    get_mac(macaddr,"ens33");
-#endif
+ 
+	//netGetMac("eth4", macaddr); //eth0  根据实际情况填充
+	macaddr[0] = 0x01; macaddr[1] = 0x01; macaddr[2] = 0x01; macaddr[3] = 0x01; macaddr[4] = 0x01; macaddr[5] = 0x01;
 	sprintf(_HwId, "urn:uuid:2419d68a-2dd2-21b2-a205-%02X%02X%02X%02X%02X%02X", macaddr[0], macaddr[1], macaddr[2], macaddr[3], macaddr[4], macaddr[5]);
  
 	sprintf(_IPAddr, "http://%s/onvif/device_service", "192.168.1.33");
