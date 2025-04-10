@@ -118,3 +118,43 @@
 250404 13:17:07.660279|src/soap/stdsoap2.c(13163): malloc(832) = 0x7f535c03fa90
 250404 13:17:07.660282|Free ID hashtable
 250404 13:17:07.660286|src/soap/stdsoap2.c(21179): malloc(112) = 0x7f535c040df0
+250410 06:52:30.959285|Could not bind to host, bind failed
+250410 06:52:30.960834|Clean up for input/output
+250410 06:52:30.968513|Free namespace stack
+250410 06:52:30.968532|Free any remaining temp blocks
+250410 06:52:30.968527|src/soap/stdsoap2.c(10969): malloc(96) = 0x7f8ca4001340
+250410 06:52:30.968536|Free attribute storage
+250410 06:52:30.968542|src/soap/stdsoap2.c(10969): malloc(40) = 0x7f8ca40013e0
+250410 06:52:30.968544|src/soap/stdsoap2.c(12096): free(0x7f8cac03fa90)
+250410 06:52:30.968546|src/soap/stdsoap2.c(10969): malloc(32) = 0x7f8ca4001440
+250410 06:52:30.968549|Free ID hashtable
+250410 06:52:30.968551|src/soap/stdsoap2.c(10969): malloc(48) = 0x7f8ca40014a0
+250410 06:52:30.968558|Free pointer hashtable
+250410 06:52:30.968572|Initializing for input from socket=3/fd=0
+250410 06:52:30.968575|Free namespace stack
+250410 06:52:30.968579|Free any remaining temp blocks
+250410 06:52:30.968581|Free attribute storage
+250410 06:52:30.968584|Free ID hashtable
+250410 06:52:30.968592|Free pointer hashtable
+250410 06:52:30.968603|src/soap/stdsoap2.c(13163): malloc(832) = 0x7f8cac03fa90
+250410 06:52:30.968609|Free ID hashtable
+250410 06:52:30.968618|src/soap/stdsoap2.c(21179): malloc(112) = 0x7f8cac040df0
+250410 06:52:30.968620|Free namespace stack
+250410 06:52:30.968625|Free any remaining temp blocks
+250410 06:52:30.968628|Free attribute storage
+250410 06:52:30.968631|src/soap/stdsoap2.c(12096): free(0x7f8ca4000bc0)
+250410 06:52:30.968634|Free ID hashtable
+250410 06:52:30.968641|Free pointer hashtable
+250410 06:52:30.968658|Free all soap_malloc() data
+250410 06:52:30.968673|src/soap/stdsoap2.c(11159): free(0x7f8ca40014a0)
+250410 06:52:30.968675|src/soap/stdsoap2.c(11159): free(0x7f8ca4001440)
+250410 06:52:30.968677|src/soap/stdsoap2.c(11159): free(0x7f8ca40013e0)
+250410 06:52:30.968679|src/soap/stdsoap2.c(11159): free(0x7f8ca4001340)
+250410 06:52:30.968701|Done with context
+250410 06:52:30.968706|Free namespace stack
+250410 06:52:30.968708|Free any remaining temp blocks
+250410 06:52:30.968709|Free attribute storage
+250410 06:52:30.968711|Free ID hashtable
+250410 06:52:30.968716|Free pointer hashtable
+250410 06:52:30.968732|Close socket=4
+250410 06:52:30.968756|Free logfiles

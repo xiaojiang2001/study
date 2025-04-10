@@ -9,14 +9,14 @@ LIB_INS_PATH = ../_install/lib/
 CFLAGS = -Wall -g -I$(LIB_PATH)
 
 # 链接选项
-LDFLAGS = -L $(LIB_INS_PATH) -lgsoap
+LDFLAGS = -L $(LIB_INS_PATH) -lgsoap -lpthread
 
 # 目标可执行文件
 TARGET = a.out
 
 # 源文件
-SRCS = onvif_server.c duration.c soapServer.c soapClient.c stdsoap2.c soapC.c onvif_server_interface.c 
-
+SRCS = main.c onvif_server.c duration.c soapServer.c stdsoap2.c soapC.c onvif_server_interface.c 
+#  soapClient.c
 # 对象文件
 OBJS = $(SRCS:.c=.o)
 OBJS := $(patsubst %,build/%,$(OBJS))

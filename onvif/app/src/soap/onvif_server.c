@@ -51,6 +51,7 @@ end:
     return NULL;
 }
 
+// 处理 HTTP 请求的回调函数
 int http_get(struct soap *soap)
 {
     FILE *fd = NULL;
@@ -72,6 +73,7 @@ int http_get(struct soap *soap)
     return SOAP_OK;
 }
 
+// 处理 HTTP 服务的线程函数
 void *onvif_http_server(void *arg)
 {
     struct soap soap_tcp;

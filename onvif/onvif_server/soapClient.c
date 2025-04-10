@@ -252,40 +252,40 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_recv___wsdd__Probe(struct soap *soap, struct __ws
 	return soap_closesock(soap);
 }
 
-SOAP_FMAC5 int SOAP_FMAC6 soap_send___wsdd__ProbeMatches(struct soap *soap, const char *soap_endpoint, const char *soap_action, struct wsdd__ProbeMatchesType *wsdd__ProbeMatches)
-{	struct __wsdd__ProbeMatches soap_tmp___wsdd__ProbeMatches;
-	if (soap_action == NULL)
-		soap_action = "http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01/ProbeMatches";
-	soap_tmp___wsdd__ProbeMatches.wsdd__ProbeMatches = wsdd__ProbeMatches;
-	soap_begin(soap);
-	soap_set_version(soap, 2); /* use SOAP1.2 */
-	soap->encodingStyle = NULL; /* use SOAP literal style */
-	soap_serializeheader(soap);
-	soap_serialize___wsdd__ProbeMatches(soap, &soap_tmp___wsdd__ProbeMatches);
-	if (soap_begin_count(soap))
-		return soap->error;
-	if ((soap->mode & SOAP_IO_LENGTH))
-	{	if (soap_envelope_begin_out(soap)
-		 || soap_putheader(soap)
-		 || soap_body_begin_out(soap)
-		 || soap_put___wsdd__ProbeMatches(soap, &soap_tmp___wsdd__ProbeMatches, "-wsdd:ProbeMatches", "")
-		 || soap_body_end_out(soap)
-		 || soap_envelope_end_out(soap))
-			 return soap->error;
-	}
-	if (soap_end_count(soap))
-		return soap->error;
-	if (soap_connect(soap, soap_endpoint, soap_action)
-	 || soap_envelope_begin_out(soap)
-	 || soap_putheader(soap)
-	 || soap_body_begin_out(soap)
-	 || soap_put___wsdd__ProbeMatches(soap, &soap_tmp___wsdd__ProbeMatches, "-wsdd:ProbeMatches", "")
-	 || soap_body_end_out(soap)
-	 || soap_envelope_end_out(soap)
-	 || soap_end_send(soap))
-		return soap_closesock(soap);
-	return SOAP_OK;
-}
+// SOAP_FMAC5 int SOAP_FMAC6 soap_send___wsdd__ProbeMatches(struct soap *soap, const char *soap_endpoint, const char *soap_action, struct wsdd__ProbeMatchesType *wsdd__ProbeMatches)
+// {	struct __wsdd__ProbeMatches soap_tmp___wsdd__ProbeMatches;
+// 	if (soap_action == NULL)
+// 		soap_action = "http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01/ProbeMatches";
+// 	soap_tmp___wsdd__ProbeMatches.wsdd__ProbeMatches = wsdd__ProbeMatches;
+// 	soap_begin(soap);
+// 	soap_set_version(soap, 2); /* use SOAP1.2 */
+// 	soap->encodingStyle = NULL; /* use SOAP literal style */
+// 	soap_serializeheader(soap);
+// 	soap_serialize___wsdd__ProbeMatches(soap, &soap_tmp___wsdd__ProbeMatches);
+// 	if (soap_begin_count(soap))
+// 		return soap->error;
+// 	if ((soap->mode & SOAP_IO_LENGTH))
+// 	{	if (soap_envelope_begin_out(soap)
+// 		 || soap_putheader(soap)
+// 		 || soap_body_begin_out(soap)
+// 		 || soap_put___wsdd__ProbeMatches(soap, &soap_tmp___wsdd__ProbeMatches, "-wsdd:ProbeMatches", "")
+// 		 || soap_body_end_out(soap)
+// 		 || soap_envelope_end_out(soap))
+// 			 return soap->error;
+// 	}
+// 	if (soap_end_count(soap))
+// 		return soap->error;
+// 	if (soap_connect(soap, soap_endpoint, soap_action)
+// 	 || soap_envelope_begin_out(soap)
+// 	 || soap_putheader(soap)
+// 	 || soap_body_begin_out(soap)
+// 	 || soap_put___wsdd__ProbeMatches(soap, &soap_tmp___wsdd__ProbeMatches, "-wsdd:ProbeMatches", "")
+// 	 || soap_body_end_out(soap)
+// 	 || soap_envelope_end_out(soap)
+// 	 || soap_end_send(soap))
+// 		return soap_closesock(soap);
+// 	return SOAP_OK;
+// }
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_recv___wsdd__ProbeMatches(struct soap *soap, struct __wsdd__ProbeMatches *_param_1)
 {
