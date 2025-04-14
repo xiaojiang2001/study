@@ -1,15 +1,12 @@
 #include <unistd.h>
-// #include "wsdd.nsmap"
-
-extern int create_onvif_server();
+#include "server/onvif_server.h"
 int main()
 {
-    create_onvif_server();
+    onvif_server_init();
 
     while (1)
     {
         sleep(60);
     }
-
     return 0;
 }

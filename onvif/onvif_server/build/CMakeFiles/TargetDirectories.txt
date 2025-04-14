@@ -1,0 +1,3 @@
+/home/yuanjl/study/onvif/onvif_server/build/CMakeFiles/rebuild_cache.dir
+/home/yuanjl/study/onvif/onvif_server/build/CMakeFiles/edit_cache.dir
+/home/yuanjl/study/onvif/onvif_server/build/CMakeFiles/onvif_server.dir

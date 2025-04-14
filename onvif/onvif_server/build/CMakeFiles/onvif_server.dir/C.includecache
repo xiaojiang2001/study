@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yuanjl/study/onvif/onvif_server/main.c
+unistd.h
+-
+server/onvif_server.h
+/home/yuanjl/study/onvif/onvif_server/server/onvif_server.h
+
+/home/yuanjl/study/onvif/onvif_server/server/onvif_server.h
+
