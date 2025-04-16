@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-
+void print1toNMaxReverse(char *number, int length, int idx);
 void  printNum(const char* number)
 {
     if(number == nullptr)
@@ -9,7 +9,7 @@ void  printNum(const char* number)
     int len = strlen(number);
     int idx = 0;
     // 过滤0
-    while (idx < len && number[idx] == 0){
+    while (idx < len && number[idx] == '0'){
         idx++;
     }
     // 打印数值
@@ -61,14 +61,39 @@ void print1ToN(int n)
     memset(number , '\0', n);
     number[n] = '\0';
 
-    bool isOverflow = false;
-    while (!isOverflow)
+    // bool isOverflow = false;
+    // while (!isOverflow)
+    // {
+    //     isOverflow = increment(number);
+    //     if(!isOverflow)
+    //         printNum(number);
+    // }
+
+
+    for (int i = 0; i < 10; i++)
     {
-        isOverflow = increment(number);
-        if(!isOverflow)
-            printNum(number);
+        number[0] = i + '0';
+        print1toNMaxReverse(number, n, 0);
     }
+     cout << endl;
     delete[] number;
+}
+
+
+void print1toNMaxReverse(char *number, int length, int idx)
+{
+    if(idx == length - 1)
+    {
+        printNum(number);
+        return;
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        number[idx + 1] = i + '0';
+        print1toNMaxReverse(number, length, idx + 1);
+    }
+    
 }
 
 int main()
