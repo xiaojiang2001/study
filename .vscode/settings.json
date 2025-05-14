@@ -75,5 +75,6 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "macro.h": "c"
-    }
+    },
+    "cmake.sourceDirectory": "/home/yuanjl/study/onvif/onvif_server"
 }
