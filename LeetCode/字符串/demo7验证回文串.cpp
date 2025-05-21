@@ -2,31 +2,31 @@
 
 using namespace std;
 
+
+//s = "A man, a plan, a canal: Panama
 bool isPalindrome(string s) {
     int slow = 0;
     int fast = 0;
-    while (fast < s.size())
-    {
-        if(s[fast] >= 'a' && s[fast] <= 'z' || s[fast] >= '0' && s[fast] <= '9') 
+    // 清理字符串
+    for (int fast = 0; fast < s.size(); fast++) {
+        if(isupper(s[fast])){
+            s[fast] = s[fast] + 32;
             s[slow++] = s[fast];
-        else if(s[fast] >= 'A' && s[fast] <= 'Z')
-            s[slow++] = s[fast] + 32;
-        fast++;
+        }   
+        else if(islower(s[fast]) || isdigit(s[fast])) {
+            s[slow++] = s[fast];
+        }
     }
+
     int left = 0;
     int right = slow - 1;
-    for (int i = 0; i < slow; i++) {
-        cout << s[i];
-    }
-    cout << endl;
-    
-    while (left < right)
+    while (left <= right)
     {
-        if(s[left] ==  s[right]) {
+        if(s[left] == s[right]) {
             left++;
             right--;
         }
-        else
+        else    
             return false;
     }
     return true;

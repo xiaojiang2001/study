@@ -3,19 +3,17 @@
 using namespace std;
 
 string addBinary(string a, string b) {
-    int i = a.size() - 1;
-    int j = b.size() - 1;
+    string res = "";
+    int idx1 = a.size() - 1;
+    int idx2 = b.size() - 1;
     int carry = 0;
-    string result = "";
-    while (i >= 0 || j >= 0 || carry)
+    while (idx1 >= 0 || idx2 >= 0 || carry == 1)
     {
-        int digit1 = (i >= 0)? (a[i] - '0') : 0;
-        int digit2 = (j >= 0)? (b[j] - '0') : 0;
-        int sum = digit1 + digit2 + carry;
+        int digital1 = idx1 >= 0? a[idx1--] - '0' : 0;
+        int digital2 = idx2 >= 0? b[idx2--] - '0' : 0;
+        int sum = digital1 + digital2 + carry;
         carry = sum / 2;
-        result = char(sum % 2 + '0') + result;
-        i--;
-        j--;
+        res = to_string(sum % 2) + res;
     }
-    return result;
+    return res;
 }
