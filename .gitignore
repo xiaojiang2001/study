@@ -1,16 +1,27 @@
+# IDE 相关
 .vscode
 *.o
 
-# Qt build directory
+# Qt build 目录
 ffmpegStudy/build-demo1SavePicture-Desktop_Qt_5_12_9_GCC_64bit-Debug/
 ffmpegStudy/build-demo1SavePicture-Desktop_Qt_5_12_9_GCC_64bit-Debug/*
+ffmpegStudy/build-videoPlayer-Desktop_Qt_5_12_9_GCC_64bit-Debug/
+ffmpegStudy/build-videoPlayer-Desktop_Qt_5_12_9_GCC_64bit-Debug/*
 
 
-# 忽略ffmpeg下的share目录
-# 任意深度
-**/ffmpeg/share/   
-# 匹配 share 目录下的所有内容     
+# ffmpeg share 目录
 **/ffmpeg/share/**
+**/share/**
+
+# 编译生成的文件
+*.exe
+*.out
+*.app
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*.cpp
+*.pro.user
 
 
 
