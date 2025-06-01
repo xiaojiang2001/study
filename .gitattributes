@@ -5,3 +5,9 @@
 
 # 将 .c 和 .h 文件识别为 C
 *.c linguist-language=C
+
+# 将onvif文件夹下递归的所有 .h 和 .cpp 文件识别为 C++
+onvif/**/*.h linguist-language=C++
+onvif/**/*.cpp linguist-language=C++
+# 将onvif文件夹下递归的所有 .c 文件识别为 C
+onvif/**/*.c linguist-language=C
