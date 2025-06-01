@@ -1,14 +1,4 @@
-# onvif 目录规则（优先级最高）
-onvif/**/*.h linguist-language=C++ linguist-vendored=false
-onvif/**/*.hpp linguist-language=C++ linguist-vendored=false
-onvif/**/*.cpp linguist-language=C++ linguist-vendored=false
-onvif/**/*.c linguist-language=C linguist-vendored=false
-
-# 第三方库目录标记
-onvif/_install/* linguist-vendored=true
-
-# 全局规则（优先级较低）
 *.cpp linguist-language=C++
 *.hpp linguist-language=C++
 *.h linguist-language=C++
-*.c linguist-language=C
+*.c linguist-language=C++
