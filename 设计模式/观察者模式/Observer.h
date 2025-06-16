@@ -29,8 +29,8 @@ public:
     }
 
 protected:
-    Publisher* m_publisher;
-    string m_name;
+    Publisher* m_publisher;     // 订阅的的发布者
+    string m_name;              // 当前观察者的名字
 };
 
 

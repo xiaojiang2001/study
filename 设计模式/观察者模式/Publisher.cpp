@@ -9,8 +9,6 @@ Publisher::Publisher()
 
 }
 
-
-
 // 1. 添加订阅者
 void Publisher::attach(Observer* observer)
 {
