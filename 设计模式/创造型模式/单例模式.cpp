@@ -81,7 +81,7 @@ public:
 protected:
 
 private:
-    Singleton() = default;
+     Singleton() = default;
     // static Singleton* m_obj;         // 单例对象
     static atomic<Singleton*>   m_obj;  // 单例对象,原子变量管理
     static mutex m_mutex;
