@@ -1,28 +1,53 @@
 #include "Observer.h"
-#include "Publisher.h"
 
-using namespace std;    
 
-int main()
+// 创建观察者，暂不订阅
+Observer::Observer(const std::string& name) : m_name(name) {}
+
+
+// 支持只订阅一个发布者的构造
+Observer::Observer(const std::string& name, Publisher* publisher) : m_name(name) 
 {
-    // 发布者
-    Publisher1* publisher1 = new Publisher1();
-    Publisher2* publisher2 = new Publisher2();  
-    // 订阅者
-    Observer1* observer1 = new Observer1(publisher1, "Observer1");
-    Observer2* observer2 = new Observer2(publisher1, "Observer2");
-    Observer3* observer3 = new Observer3(publisher2, "Observer3");
+    if (publisher) {
+        m_publishers.push_back(publisher);
+        publisher->attach(this);
+    }
+}
 
-    // 推送消息
-    publisher1->notify("publisher1 notify message1");
-    cout << "======================================" << endl;
-    publisher2->notify("publisher2 notify message2");
+// 支持多个订阅
+Observer::Observer(const std::string& name, const std::list<Publisher*>& publishers):m_name(name)
+{
+    for (auto* pub : publishers) {
+        if (pub) {
+            m_publishers.push_back(pub);
+            pub->attach(this);
+        }
+    }
+}
+Observer::~Observer() {
+    unsubscribeAll();
+    cout << "Observer " << m_name << " is destroyed" << endl;
+}
 
-    delete publisher1;
-    delete publisher2;
-    delete observer1;  
-    delete observer2;
-    delete observer3;
-    
-    return 0;
+
+// 添加订阅指定发布者
+void Observer::subscribe(Publisher* publisher) {
+    if (publisher && std::find(m_publishers.begin(), m_publishers.end(), publisher) == m_publishers.end()) {
+        m_publishers.push_back(publisher);
+        publisher->attach(this);
+    }
+}
+
+// 取消订阅所有发布者
+void Observer::unsubscribeAll() {
+    for (auto* pub : m_publishers) {
+        if (pub) pub->detach(this);
+    }
+    m_publishers.clear();
+}
+
+ // 取消订阅指定发布者
+void Observer::unsubscribe(Publisher* publisher) {
+    m_publishers.remove(publisher);
+    if (publisher) publisher->detach(this);
 }

@@ -13,7 +13,7 @@ class Observer;
 class Publisher
 { 
 public:
-    Publisher();
+    Publisher(string name);
     virtual ~Publisher() {}         // 基类，虚析构，多态时能通过基类指针析构各个子类的析构函数
 
     // 1. 添加订阅者
@@ -23,9 +23,12 @@ public:
     // 3. 通知订阅者 
     virtual void notify(string msg) = 0;    // 不同子类发送消息不一样，定义为存虚，要求必须重写notify函数
 
+    virtual string getName() const = 0;
+
 protected:
     // 订阅者列表 添加删除效率高
     list<Observer*> m_observers;
+    string m_name;
 };
 
 
@@ -33,20 +36,28 @@ protected:
 class Publisher1 : public Publisher
 {
 public:
-    Publisher1();
+    Publisher1(string name);
     ~Publisher1() {}
 
     void notify(string msg) override;
+
+    string getName() const override {
+        return this->m_name;
+    }
 };
 
 // 发布者子类2
 class Publisher2 : public Publisher
 {
 public:
-    Publisher2();
+    Publisher2(string name);
     ~Publisher2() {}
 
     void notify(string msg) override;
+
+    string getName() const override {
+        return this->m_name;
+    }
 };
 
 

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Publisher::Publisher()
+Publisher::Publisher(string name):m_name(name)
 {
 
 }
@@ -23,35 +23,35 @@ void Publisher::detach(Observer* observer)
 }
 
 
-Publisher1::Publisher1()
+Publisher1::Publisher1(string name):Publisher(name)
 {
 
 }
 
-Publisher2::Publisher2()
+Publisher2::Publisher2(string name):Publisher(name)
 {
     
 }
 
 void Publisher1::notify(string msg)
 {
-    cout << "Publisher1 observer num:" << m_observers.size() <<endl;
+    cout << this->m_name <<" observer num:" << m_observers.size() <<endl;
 
     for(const auto &observer : m_observers)
     {
         // 观察者更新数据
-        observer->update(msg);
+        observer->update(this,msg);
     }
 }
 
 
 void Publisher2::notify(string msg)
 {
-    cout << "Publisher2 observer num:" << m_observers.size() <<endl;
+    cout << this->m_name <<" observer num:" << m_observers.size() <<endl;
 
     for(const auto &observer : m_observers)
     {
         // 观察者更新数据
-        observer->update(msg);
+        observer->update(this,msg);
     }
 }

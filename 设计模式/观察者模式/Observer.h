@@ -4,78 +4,91 @@
 #include <iostream>
 #include "Publisher.h"
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
+class Publisher;
 
 // 抽象观察者类
 class Observer {
 public:
-    // 和发布者进行关联 - 通过构造函数实现 - 初始化列表
-    Observer(Publisher* publisher, string name) : m_publisher(publisher), m_name(name) {
-        m_publisher->attach(this);
-    }
 
+    // 只创建观察者，不订阅
+    Observer(const std::string& name);
 
-    // 和发布者进行解除关联 - 取消订阅
-    void unsubscribe() {
-        m_publisher->detach(this);
-    }
+    // 支持只订阅一个发布者的构造
+    Observer(const std::string& name, Publisher* publisher);
+
+    // 支持订阅多个发布者
+    Observer(const std::string& name, const std::list<Publisher*>& publishers);
+    
+    virtual ~Observer();
+
+    // 添加订阅指定发布者
+    void subscribe(Publisher* publisher);
+
+    // 取消订阅所有发布者
+    void unsubscribeAll();
+
+    // 取消订阅指定发布者
+    void unsubscribe(Publisher* publisher);
+    
+
     // 更新消息
-    virtual void update(string msg) = 0;
+    virtual void update(Publisher* publisher, string msg) = 0;
 
-    virtual ~Observer() {
-        cout << "Observer " << m_name << " is destroyed" << endl;
-    }
 
 protected:
-    Publisher* m_publisher;     // 订阅的的发布者
-    string m_name;              // 当前观察者的名字
+    list<Publisher*> m_publishers;      // 订阅的发布者列表
+    string m_name;                      // 观察者名称
 };
 
 
+
+// 具体实现
 class Observer1 : public Observer {
 public:
-    Observer1(Publisher* publisher, string name) : Observer(publisher, name) {
-        cout << "Observer1 " << name << " is created" << endl;
+    Observer1(string name, Publisher* publisher) : Observer(name, publisher) {
+        cout << name << " is created" << endl;
     }
 
-    void update(string msg) override {
-        cout << "Observer1 " << m_name << " received msg: " << msg << endl;
+    void update(Publisher* publisher, string msg) override {
+        cout << m_name << " received msg form " << publisher->getName()  << ": " << msg << endl;
     }
 
     ~Observer1() {
-        cout << "Observer1 " << m_name << " is destroyed";
+        cout << m_name << " is destroyed";
     }
 };
 
 class Observer2 : public Observer {
 public:
-    Observer2(Publisher* publisher, string name) : Observer(publisher, name) {
-        cout << "Observer2 " << name << " is created" << endl;
+    Observer2(string name, Publisher* publisher) : Observer(name, publisher) {
+        cout << name << " is created" << endl;
     }
 
-    void update(string msg) override {
-        cout << "Observer2 " << m_name << " received msg: " << msg << endl;
+    void update(Publisher* publisher, string msg) override {
+        cout << m_name << " received msg form " << publisher->getName()  << ": " << msg << endl;
     }
 
     ~Observer2() {
-        cout << "Observer2 " << m_name << " is destroyed";
+        cout << m_name << " is destroyed";
     }
 };
 
 class Observer3 : public Observer {
 public:
-    Observer3(Publisher* publisher, string name) : Observer(publisher, name) {
-        cout << "Observer3 " << name << " is created" << endl;
+    Observer3(string name, Publisher* publisher) : Observer(name, publisher) {
+        cout << name << " is created" << endl;
     }
 
-    void update(string msg) override {
-        cout << "Observer3 " << m_name << " received msg: " << msg << endl;
+    void update(Publisher* publisher, string msg) override {
+        cout << m_name << " received msg form " << publisher->getName() << ": " << msg << endl;
     }
 
     ~Observer3() {
-        cout << "Observer3 " << m_name << " is destroyed";
+        cout << m_name << " is destroyed";
     }
 };
 
