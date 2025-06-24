@@ -1,5 +1,5 @@
 #ifndef __OBSERVER_H__
-#define __OBERVER_H__
+#define __OBSERVER_H__
 
 #include <iostream>
 #include "Publisher.h"
