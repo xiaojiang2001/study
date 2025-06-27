@@ -178,8 +178,6 @@ bool isSubsequence(string s, string t) {
 */
 
 
-
-
 // 6. 不同的子序列
 // s = "babgbag", t = "bag"
 int numDistinct(string s, string t) {
@@ -195,9 +193,7 @@ int numDistinct(string s, string t) {
         for (size_t j = 1; j <= t.size(); j++)
         {
             if(s[i-1] == t[j-1])
-            {
                 dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
-            }
             else
                 dp[i][j] = dp[i-1][j-1];
         }
@@ -205,6 +201,21 @@ int numDistinct(string s, string t) {
     return dp[s.size()][t.size()];
 }
 
+//7. 连个字符串的删除操作
+//单词word1和word2，返回使得word1和word2相同所需的最小步数
+int minDistance(string word1, string word2) {
+    // dp[i][j]: 当 text1 以 i-1 为下标, text2 以 j-1 为下标形成的最长重复子数组长度
+    vector<vector<int>> dp(word1.size() + 1, vector<int>(word2.size() + 1));
+
+    for (int i = 1; i <= word1.size(); i++)
+    {
+        for (int j = 1; j <= word2.size(); j++)
+        {
+            
+        }
+    }
+
+}
 
 int main()
 {
